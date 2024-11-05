@@ -1,4 +1,5 @@
 # **BScript Development**
+![bs-storerobbery](https://github.com/user-attachments/assets/1c96e706-254c-4e08-b9a0-ec53d8b6466a)
 
 ## With the BS-Storerobbery script you can make the shops you want to be robbed.
 

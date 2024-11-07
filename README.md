@@ -9,7 +9,7 @@
 
 https://www.youtube.com/watch?v=9etWr8q_cLk
 
-> [CFX Release Post](https://forum.cfx.re/t/free-bs-breathalyzer-alcohol-drunk-breathalyzer-script/5279329)
+> [CFX Release Post](https://forum.cfx.re/t/free-bs-storerobbery-heist-robbery-script-npc-responsive/5280905)
 
 # Join Discord (24/7 Support)
 > [Discord](https://discord.gg/dxVJ2wxfc6)

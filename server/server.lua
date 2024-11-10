@@ -53,5 +53,5 @@ RegisterNetEvent('BS-Storerobbery:server:reward',function(data)
 end)
 
 RegisterNetEvent('BS-Storerobbery:server:getData',function()
-    TriggerClientEvent('BS-Storerobbery:client:setData',src,Config.RobLocations)
+    TriggerClientEvent('BS-Storerobbery:client:setData',source,Config.RobLocations)
 end)

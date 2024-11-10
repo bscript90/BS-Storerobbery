@@ -55,7 +55,7 @@ elseif Config.Framework == "RSG" then
             local sheriffs = {}
             for k,src in pairs(GetPlayers()) do
                 local Player = RSGCore.Functions.GetPlayer(src)
-                if Plyaer then
+                if Player then
                     local job = Player.PlayerData.job.name
                     if Config.AlertJobs[job] then
                         sheriffs[#sheriffs+1] = src

@@ -94,6 +94,20 @@ Citizen.CreateThread(function()
                         if timediff >= calcToMS then
                             DrawText3D(v.rob[i].coord.x,v.rob[i].coord.y,v.rob[i].coord.z,v.rob[i].robtext,255,255,255)
                             if IsControlJustPressed(0,0xCEFD9220) then
+                                if v.rob[i].lockpick == true and Config.Framework == "RSG" then
+                                    local hasItem = RSGCore.Functions.HasItem('lockpick', 1)
+                                    if not hasItem then
+                                        lib.notify({ title = 'You need lockpick', type = 'error', duration = 7000 })
+                                        return
+                                    end
+                                    local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 1}, 'hard'}, {'e'})
+                                    if not success then
+                                        lib.notify({ title = 'You fail rob..', type = 'error', duration = 7000 })
+                                        TriggerServerEvent('BS-Storerobbery:server:removeitem', 'lockpick', 1)
+                                        return
+                                    end
+                                    TriggerServerEvent('BS-Storerobbery:server:removeitem', 'lockpick', 1)
+                                end
                                 v.rob[i].robbedtime = GetGameTimer()
                                 TriggerServerEvent('BS-Storerobbery:server:setData',k,i,GetGameTimer())
                                 TriggerServerEvent('BS-Storerobbery:server:alert')

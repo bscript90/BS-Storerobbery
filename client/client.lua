@@ -94,6 +94,12 @@ Citizen.CreateThread(function()
                         if timediff >= calcToMS then
                             DrawText3D(v.rob[i].coord.x,v.rob[i].coord.y,v.rob[i].coord.z,v.rob[i].robtext,255,255,255)
                             if IsControlJustPressed(0,0xCEFD9220) then
+                                v.rob[i].robbedtime = GetGameTimer()
+                                TriggerServerEvent('BS-Storerobbery:server:setData',k,i,GetGameTimer())
+                                TriggerServerEvent('BS-Storerobbery:server:alert')
+                                local endTime = v.rob[i].robTime * 1000
+                                endTime = endTime + GetGameTimer()
+
                                 if v.rob[i].lockpick == true and Config.Framework == "RSG" then
                                     local hasItem = RSGCore.Functions.HasItem('lockpick', 1)
                                     if not hasItem then
@@ -108,11 +114,7 @@ Citizen.CreateThread(function()
                                     end
                                     TriggerServerEvent('BS-Storerobbery:server:removeitem', 'lockpick', 1)
                                 end
-                                v.rob[i].robbedtime = GetGameTimer()
-                                TriggerServerEvent('BS-Storerobbery:server:setData',k,i,GetGameTimer())
-                                TriggerServerEvent('BS-Storerobbery:server:alert')
-                                local endTime = v.rob[i].robTime * 1000
-                                endTime = endTime + GetGameTimer()
+
                                 ClearPedTasks(PlayerPedId())
                                 FreezeEntityPosition(PlayerPedId(),true)
                                 Wait(1000)

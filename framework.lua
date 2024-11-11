@@ -41,6 +41,12 @@ elseif Config.Framework == "RSG" then
         -- serverside
         RSGCore = exports['rsg-core']:GetCoreObject()
 
+        function BSRemoveItem(src,itemname,itemcount)
+            local Player = RSGCore.Functions.GetPlayer(src)
+            Player.Functions.Removetem(itemname, itemcount,false,nil)
+            TriggerClientEvent('rsg-inventory:client:ItemBox', src, RSGCore.Shared.Items[itemname], 'remove', itemcount)
+        end
+
         function BSAddItem(src,itemname,itemcount)
             local Player = RSGCore.Functions.GetPlayer(src)
             Player.Functions.AddItem(itemname, itemcount,false,nil)

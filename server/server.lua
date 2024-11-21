@@ -17,6 +17,7 @@ RegisterNetEvent('BS-Storerobbery:server:setData',function(k,i,timer)
     Config.RobLocations[k].rob[i].robbedtime = timer
     TriggerClientEvent('BS-Storerobbery:client:setData',-1,Config.RobLocations)
 end)
+
 RegisterNetEvent('BS-Storerobbery:server:reward',function(data)
     local src = source
     local reward = false
@@ -54,4 +55,12 @@ end)
 
 RegisterNetEvent('BS-Storerobbery:server:getData',function()
     TriggerClientEvent('BS-Storerobbery:client:setData',source,Config.RobLocations)
+end)
+
+RegisterServerEvent('BS-Storerobbery:server:removeitem')
+AddEventHandler('BS-Storerobbery:server:removeitem', function(item, amount)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if not Player then return end
+    BSRemoveItem(src, item, amount)
 end)

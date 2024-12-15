@@ -1,5 +1,5 @@
 fx_version "cerulean"
-version "1.0"
+version "1.1"
 author "BScript Development"
 description "Store Robbery Script"
 game "rdr3"

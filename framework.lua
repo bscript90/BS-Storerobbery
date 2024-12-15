@@ -6,6 +6,10 @@ if Config.Framework == "VORP" then
         function BSAddItem(src,itemname,itemcount)
             exports.vorp_inventory:addItem(src, itemname, itemcount, nil)
         end
+
+        function BSRemoveItem(src,itemname,itemcount)
+            exports.vorp_inventory:subItem(src, itemname, itemcount, nil)
+        end
         
         function BSAddMoney(src,moneytype,amount)
             local user = VorpCore.getUser(src)
@@ -17,7 +21,7 @@ if Config.Framework == "VORP" then
         function BSGetSheriffs(cb)
             local sheriffs = {}
             for k,src in pairs(GetPlayers()) do
-                local user = VorpCore.getUser(src)
+                local user = VorpCore.getUser(tonumber(src))
                 if user then
                     local character = user.getUsedCharacter
                     local job = character.job
@@ -46,6 +50,11 @@ elseif Config.Framework == "RSG" then
             Player.Functions.AddItem(itemname, itemcount,false,nil)
         end
         
+        function BSRemoveItem(src,itemname,itemcount)
+            local Player = RSGCore.Functions.GetPlayer(src)
+            Player.Functions.AddItem(itemname, itemcount,false,nil)
+        end
+
         function BSAddMoney(src,moneytype,amount)
             local Player = RSGCore.Functions.GetPlayer(src)
             Player.Functions.AddMoney(moneytype, amount, 'BS-Storerobbery')
@@ -54,10 +63,14 @@ elseif Config.Framework == "RSG" then
         function BSGetSheriffs(cb)
             local sheriffs = {}
             for k,src in pairs(GetPlayers()) do
-                local Player = RSGCore.Functions.GetPlayer(src)
+                print(k,src)
+                local Player = RSGCore.Functions.GetPlayer(tonumber(src))
+                print("aranıyor")
                 if Player then
-                    local job = Player.PlayerData.job.name
+                    local job = Player.PlayerData.job.type
+                    print(job)
                     if Config.AlertJobs[job] then
+                        print(job.." var")
                         sheriffs[#sheriffs+1] = src
                     end
                 end

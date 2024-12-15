@@ -74,7 +74,13 @@ local function DrawText3D(x,y,z, text,r,g,b)
     end
 end
 
-
+local function checkItem(name)
+    if Config.Framework == "VORP" then
+        return exports.vorp_inventory:GetItem(name)
+    elseif Config.Framework == "RSG" then
+        return exports["rsg-inventory"]:HasItem(name,1)
+    end
+end
 Citizen.CreateThread(function()
     while true do
         local sleep = 5000
@@ -93,39 +99,49 @@ Citizen.CreateThread(function()
                         sleep = 1
                         if timediff >= calcToMS then
                             DrawText3D(v.rob[i].coord.x,v.rob[i].coord.y,v.rob[i].coord.z,v.rob[i].robtext,255,255,255)
+                
                             if IsControlJustPressed(0,0xCEFD9220) then
-                                v.rob[i].robbedtime = GetGameTimer()
-                                TriggerServerEvent('BS-Storerobbery:server:setData',k,i,GetGameTimer())
-                                TriggerServerEvent('BS-Storerobbery:server:alert')
-                                local endTime = v.rob[i].robTime * 1000
-                                endTime = endTime + GetGameTimer()
-                                ClearPedTasks(PlayerPedId())
-                                FreezeEntityPosition(PlayerPedId(),true)
-                                Wait(1000)
-                                if v.rob[i].robAnimation and v.rob[i].robAnimation.name then
-                                    RequestAnimDict(v.rob[i].robAnimation.dict)
-                                    while not HasAnimDictLoaded(v.rob[i].robAnimation.dict) do
-                                        Citizen.Wait(100)
+                 
+                                if (v.rob[i].needLockpick and checkItem(Config.LockpickItem)) or not v.rob[i].needLockpick then
+                                    v.rob[i].robbedtime = GetGameTimer()
+                                    TriggerServerEvent('BS-Storerobbery:server:setData',k,i,GetGameTimer())
+                                    TriggerServerEvent('BS-Storerobbery:server:alert')
+                                    local endTime = v.rob[i].robTime * 1000
+                                    endTime = endTime + GetGameTimer()
+                                    ClearPedTasks(PlayerPedId())
+                                    FreezeEntityPosition(PlayerPedId(),true)
+                                    Wait(1000)
+                                    if v.rob[i].robAnimation and v.rob[i].robAnimation.name then
+                                        RequestAnimDict(v.rob[i].robAnimation.dict)
+                                        while not HasAnimDictLoaded(v.rob[i].robAnimation.dict) do
+                                            Citizen.Wait(100)
+                                        end
+                                        TaskPlayAnim(PlayerPedId(), v.rob[i].robAnimation.dict, v.rob[i].robAnimation.name, 1.0, -1.0, -1, 1, 0, true, 0, false, 0, false)
+                                    elseif v.rob[i].robAnimation then
+                                        TaskStartScenarioInPlace(PlayerPedId(), GetHashKey(v.rob[i].robAnimation.dict), 0, true, false, false, false)
                                     end
-                                    TaskPlayAnim(PlayerPedId(), v.rob[i].robAnimation.dict, v.rob[i].robAnimation.name, 1.0, -1.0, -1, 1, 0, true, 0, false, 0, false)
-                                elseif v.rob[i].robAnimation then
-                                    TaskStartScenarioInPlace(PlayerPedId(), GetHashKey(v.rob[i].robAnimation.dict), 0, true, false, false, false)
+                                    while endTime > GetGameTimer() do  
+                                        if CanNPCSee(spawnedNPCs[k]) then
+                                            SetPedRelationshipGroupHash(PlayerPedId(),AddRelationshipGroup("enemy"))
+                                            SetRelationshipBetweenGroups(5, GetPedRelationshipGroupHash(spawnedNPCs[k]), GetPedRelationshipGroupHash(PlayerPedId()))
+                                            TaskCombatPed(spawnedNPCs[k], PlayerPedId(), 0, 16)
+                                            SetPedCombatMovement(spawnedNPCs[k], 3)
+                                            FreezeEntityPosition(PlayerPedId(),false)
+                                            Wait(4000)
+                                        end  
+                                        Wait(500)
+                                    end 
+                                    FreezeEntityPosition(PlayerPedId(),false)
+                             
+                                    ClearPedTasks(PlayerPedId())
+                                    TriggerServerEvent('BS-Storerobbery:server:reward',v.rob[i].reward,v.rob[i].needLockpick)
+                                else
+                                    Notify({
+                                        text = "You don't have a lockpick!",
+                                        time = 5000,
+                                        type = "error"
+                                    })
                                 end
-                                while endTime > GetGameTimer() do  
-                                    if CanNPCSee(spawnedNPCs[k]) then
-                                        SetPedRelationshipGroupHash(PlayerPedId(),AddRelationshipGroup("enemy"))
-                                        SetRelationshipBetweenGroups(5, GetPedRelationshipGroupHash(spawnedNPCs[k]), GetPedRelationshipGroupHash(PlayerPedId()))
-                                        TaskCombatPed(spawnedNPCs[k], PlayerPedId(), 0, 16)
-                                        SetPedCombatMovement(spawnedNPCs[k], 3)
-                                        FreezeEntityPosition(PlayerPedId(),false)
-                                        Wait(4000)
-                                    end  
-                                    Wait(500)
-                                end 
-                                FreezeEntityPosition(PlayerPedId(),false)
-                         
-                                ClearPedTasks(PlayerPedId())
-                                TriggerServerEvent('BS-Storerobbery:server:reward',v.rob[i].reward)
                             end
                         else
                             DrawText3D(v.rob[i].coord.x,v.rob[i].coord.y,v.rob[i].coord.z,v.rob[i].robbedtext,255,0,0)

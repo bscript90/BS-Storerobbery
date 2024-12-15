@@ -2,8 +2,14 @@ Config = {}
 Config.Framework = "VORP" -- RSG
 
 Config.AlertJobs = {
+    -- jobname = true,
+    -- if rsgcore is selected you should type jobtype
     ["sheriff"] = true,
+    ["leo"] = true,
 }
+
+Config.LockpickItem = "lockpick"
+
 Config.RobLocations = {
     ["RhodesStore"] = {
         npc = {
@@ -33,6 +39,7 @@ Config.RobLocations = {
                     name = "take_glass_trans_serve_beer",
                 },
                 robCooldown = 5, -- minute
+                needLockpick = false,
                 reward = {
                     {type="item",label="Vodka",name="vodka",count=1,chance = 0.5},
                     {type="money",name="cash",count=50,chance = 0.5},
@@ -44,6 +51,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -60,6 +68,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -76,6 +85,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Register",
                 robbedtext = "Empty Register",
                 robTime = 5, --second
+                needLockpick = true,
                 robAnimation = {
                     dict = "mech_pickup@loot@cash_register@open",
                     name = "enter_step_in",
@@ -117,6 +127,7 @@ Config.RobLocations = {
                     name = "take_glass_trans_serve_beer",
                 },
                 robCooldown = 5, -- minute
+                needLockpick = false,
                 reward = {
                     {type="item",label="Vodka",name="vodka",count=1,chance = 0.5},
                     {type="money",name="cash",count=50,chance = 0.5},
@@ -133,6 +144,7 @@ Config.RobLocations = {
                     name = "take_glass_trans_serve_beer",
                 },
                 robCooldown = 5, -- minute
+                needLockpick = false,
                 reward = {
                     {type="item",label="Vodka",name="vodka",count=1,chance = 0.5},
                     {type="money",name="cash",count=50,chance = 0.5},
@@ -144,6 +156,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -160,6 +173,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -176,6 +190,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Register",
                 robbedtext = "Empty Register",
                 robTime = 5, --second
+                needLockpick = true,
                 robAnimation = {
                     dict = "mech_pickup@loot@cash_register@open",
                     name = "enter_step_in",
@@ -211,6 +226,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -227,6 +243,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -243,6 +260,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -259,6 +277,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Shelves",
                 robbedtext = "Empty shelves",
                 robTime = 5, --second
+                needLockpick = false,
                 robAnimation = {
                     dict = "amb_work@world_human_bartender@serve_player",
                     name = "take_glass_trans_serve_beer",
@@ -275,6 +294,7 @@ Config.RobLocations = {
                 robtext = "[E] | Search The Register",
                 robbedtext = "Empty Register",
                 robTime = 5, --second
+                needLockpick = true,
                 robAnimation = {
                     dict = "mech_pickup@loot@cash_register@open",
                     name = "enter_step_in",
